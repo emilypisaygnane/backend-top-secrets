@@ -13,7 +13,7 @@ describe('/api/v1/users routes', () => {
     return setup(pool);
   });
 
-  it.skip('/api/v1/users registers a new user', async () => {
+  it.skip('POST /api/v1/users registers a new user', async () => {
     const res = await request(app)
       .post('/api/v1/users')
       .send(fakeUser);

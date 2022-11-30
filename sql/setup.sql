@@ -1,7 +1,7 @@
 -- Use this file to define your SQL tables
 -- The SQL in this file will be executed when you run `npm run setup-db`
 
-DROP TABLE IF EXISTS users;
+DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS secrets;
 
 CREATE TABLE users (
@@ -18,7 +18,7 @@ CREATE TABLE secrets (
 );
 
 INSERT INTO 
-    secret (title, description) 
+    secrets (title, description) 
     
 VALUES
 ('Spy Kids', 'My parents cant be spies, theyre not cool enough'),

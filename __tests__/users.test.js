@@ -48,17 +48,22 @@ describe('/api/v1/users routes', () => {
     expect(resp.body).toEqual({ message: 'Signed in successfully!' });
   });
 
-  it('/protected should return a 401 if not authenticated', async () => {
+  it('GET /protected should return a 401 if not authenticated', async () => {
     const res = await request(app).get('/api/v1/users/protected');
     expect(res.status).toEqual(401);
   });
 
-  it('/protected should return the current user if authenticated', async () => {
+  it('GET /protected should return the current user if authenticated', async () => {
     const [agent] = await registerAndLogin();
     const res = await agent.get('/api/v1/users/protected');
     expect(res.status).toEqual(200);
   });
 
+  it('DELETE /sessions deletes the user session', async () => {
+    const [agent] = await registerAndLogin();
+    const res = await agent.delete('/api/v1/users/sessions');
+    expect(res.status).toBe(204);
+  });
   
   afterAll(() => {
     pool.end();

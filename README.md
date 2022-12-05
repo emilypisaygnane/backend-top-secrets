@@ -1,17 +1,15 @@
-# Template for Backend Express
+<!-- 
+POST { email, password } to /api/v1/users/sessions logs in a user	4
 
-The Golden Rule:
-🦸 🦸‍♂️ Stop starting and start finishing. 🏁
+DELETE /api/v1/users/sessions logs out a user	4
 
-If you work on more than one feature at a time, you are guaranteed to multiply your bugs and your anxiety.
+X POST { email, password } to /api/v1/users creates a new user	4
 
-## Scripts
+GET /api/v1/secrets returns a list of secrets ([{ title, description, createdAt }])	2
 
-| command                | description                                                                         |
-| ---------------------- | ----------------------------------------------------------------------------------- |
-| `npm start`            | starts the app - should only be used in production as changes will not get reloaded |
-| `npm run start:watch`  | runs the app using `nodemon` which watches for changes and reloads the app          |
-| `npm test`             | runs the tests once                                                                 |
-| `npm run test:watch`   | continually watches and runs the tests when files are updated                       |
-| `npm run setup-db`     | sets up the database locally                                                        |
-| `npm run setup-heroku` | sets up the database on heroku                                                      |
+Each route is tested	2
+
+Git history shows vertical approach	4
+
+Password is stored in plaintext/password hash is stored in the JWT -5
+-->

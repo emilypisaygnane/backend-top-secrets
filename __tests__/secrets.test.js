@@ -9,11 +9,6 @@ const fakeUser = {
   password: '123456'
 };
 
-const fakeSecret = {
-  title: 'super secret',
-  description: 'super top secret, secret. hush hush, shh shh'
-};
-
 const registerAndLogin = async (userProps = {})  => {
   const password = userProps.password ?? fakeUser.password;
 
@@ -43,6 +38,39 @@ describe('secret routes', () => {
       created_at: expect.any(String)
     });
   });
+
+  it('GET /api/v1/secrets should return a list of secrets if user is logged in', async () => {
+    const fakeUser = {
+      email: 'test@example.com',
+      password: '123456',
+    };
+    await UserService.create(fakeUser);
+    const agent = request.agent(app);
+    await agent.post('/api/v1/users/sessions').send(fakeUser);
+    const resp = await agent.get('/api/v1/secrets');
+    expect(resp.status).toBe(200);
+    expect(resp.body).toEqual([
+      {
+        id: expect.any(String),
+        title: 'Spy Kids',
+        description: 'My parents cant be spies, theyre not cool enough',
+        created_at: expect.any(String),
+      },
+      {
+        id: expect.any(String),
+        title: 'Cats & Dogs',
+        description: 'You fight like a poodle',
+        created_at: expect.any(String),
+      },
+      {
+        id: expect.any(String),
+        title: 'G-Force',
+        description: 'Dont pay any attention to him. Hes a quarter ferret',
+        created_at: expect.any(String),
+      },
+    ]);
+  });
+
   afterAll(() => {
     pool.end();
   });

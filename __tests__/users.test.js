@@ -9,17 +9,17 @@ const fakeUser = {
   password: '123456'
 };
 
-// const registerAndLogin = async (userProps = {})  => {
-//   const password = userProps.password ?? testUser.password;
+const registerAndLogin = async (userProps = {})  => {
+  const password = userProps.password ?? fakeUser.password;
 
-//   const agent = request.agent(app);
+  const agent = request.agent(app);
 
-//   const user = await UserService.create({ ...testUser, ...userProps });
+  const user = await UserService.create({ ...fakeUser, ...userProps });
 
-//   const { email } = user;
-//   await agent.post('/api/v1/users/sessions').send({ email, password });
-//   return [agent, user];
-// };
+  const { email } = user;
+  await agent.post('/api/v1/users/sessions').send({ email, password });
+  return [agent, user];
+};
 
 describe('/api/v1/users routes', () => {
   beforeEach(() => {
@@ -51,6 +51,12 @@ describe('/api/v1/users routes', () => {
   it('/protected should return a 401 if not authenticated', async () => {
     const res = await request(app).get('/api/v1/users/protected');
     expect(res.status).toEqual(401);
+  });
+
+  it('/protected should return the current user if authenticated', async () => {
+    const [agent] = await registerAndLogin();
+    const res = await agent.get('/api/v1/users/protected');
+    expect(res.status).toEqual(200);
   });
 
   
